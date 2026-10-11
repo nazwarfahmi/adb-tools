@@ -342,7 +342,11 @@ class AppAuditDialog(QDialog):
         ads = data.get("ad_networks", [])
         trackers = data.get("trackers", [])
         total_threats = len(ads) + len(trackers)
-        has_overlay = any(p.get("name") == "android.permission.SYSTEM_ALERT_WINDOW" for p in data.get("permissions_list", []))
+        has_overlay = any(
+            p.get("name") == "android.permission.SYSTEM_ALERT_WINDOW" or
+            p.get("permission") == "android.permission.SYSTEM_ALERT_WINDOW"
+            for p in data.get("permissions_list", [])
+        )
 
         if total_threats > 0:
             self.lbl_ad_icon.setText("🚨" if (has_overlay and ads) else "⚠️")

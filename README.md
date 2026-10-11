@@ -16,9 +16,13 @@
   <img src="https://img.shields.io/badge/License-MIT-blue" alt="License">
 </p>
 
+<p align="center">
+  <img src="docs/images/preview_overview.png" width="95%" alt="ADB Tools GUI - Device Overview">
+</p>
+
 ---
 
-## 🌟 Fitur Utama
+## 🌟 Fitur Utama & Tampilan Antarmuka
 
 ### 1. 📱 Device Overview & Hardware Diagnostics
 * **Spesifikasi Lengkap:** Brand, model, serial, versi Android, SDK level, build fingerprint, security patch, arsitektur CPU (ABI), dan alamat IP Wi-Fi.
@@ -27,20 +31,31 @@
 * **Text Sender & Clipboard Sync:** Ketik teks langsung dari PC ke HP atau sinkronkan clipboard dua arah.
 * **Screenshot Instan:** Ambil tangkapan layar HP tanpa meninggalkan file sampah di perangkat.
 
-### 2. 📦 App Manager, Inspector & Audit Iklan/Malware
-* **Visual App List:** Menampilkan nama asli aplikasi, nama paket (*package name*), dan icon aplikasi secara otomatis dalam tata letak 2 baris yang elegan.
-* **🔍 Detail App Audit (Inspector):**
-  * Rincian izin lengkap (*Dangerous permissions, system alert/overlay, background service*).
-  * Deteksi SDK Iklan & Pelacak (*Google AdMob, Unity Ads, AppLovin, Facebook Audience Network, IronSource, Mintegral, Pangle*).
-  * Informasi signature, target SDK, tanggal pemasangan, sumber penginstal, dan ukuran cache/storage.
-* **🚨 Deteksi Adware Pop-up Cerdas:**
+---
+
+### 2. 📦 App Manager & 🔍 Audit Aplikasi (Adware Detector)
+* **Visual App List:** Menampilkan nama asli aplikasi, nama paket (*package name*), dan icon aplikasi secara otomatis dalam tata letak 2 baris yang rapi.
+* **Pencarian & Urutan Fleksibel:** Filter berdasarkan tipe (Semua, Sistem, Pengguna, Dinonaktifkan) dan urutkan berdasarkan Nama atau Tanggal Pasang.
+* **2-Step Verification:** Konfirmasi hapus dan uninstall mencegah risiko salah klik.
+
+<p align="center">
+  <img src="docs/images/preview_app_manager.png" width="95%" alt="ADB Tools GUI - Kelola Aplikasi">
+</p>
+
+* **🚨 Deteksi Adware Pop-up Cerdas (Audit Inspector):**
   * Mendeteksi otomatis aplikasi nakal yang memunculkan iklan full-screen tiba-tiba saat HP idle atau di home screen (kombinasi deteksi Ad SDK + izin `SYSTEM_ALERT_WINDOW` / Tampilkan di atas aplikasi lain).
+  * Menampilkan rincian SDK Iklan & Pelacak (*Google AdMob, Unity Ads, AppLovin, Facebook Audience Network, IronSource, Mintegral, dll*).
+  * Rincian izin teknis, tanda tangan APK, waktu pemasangan, dan pemakaian memori.
 * **🛡 Pembasmi Iklan & Pengoptimal HP (Ad-Blocker Helper):**
   * Konfigurasi 1-klik Private DNS (AdGuard DNS `dns.adguard-dns.com` & NextDNS) tanpa perlu root.
   * Reset Private DNS ke setelan standar (*Automatic/Off*).
   * Bersihkan data/cache aplikasi yang dicurigai serta batasi aktivitas latar belakang (*AppOps Run-in-Background*).
-* **Verifikasi 2 Langkah (Anti-Salah Hapus):** Setiap operasi penghapusan, uninstall, atau freeze dilengkapi dialog konfirmasi interaktif.
-* **Operasi Tambahan:** Pasang APK (Drag & Drop), Buka aplikasi, Force stop, Hapus cache, dan Ekspor/Backup APK ke PC.
+
+<p align="center">
+  <img src="docs/images/preview_app_audit.png" width="85%" alt="ADB Tools GUI - Audit Aplikasi & Deteksi Adware">
+</p>
+
+---
 
 ### 3. 🧹 Smart Debloater (Integrasi Database UAD 5.300+ Paket)
 * **Proteksi 3 Lapis Aplikasi Pihak Ketiga (Anti-Salah Hapus):**
@@ -53,6 +68,12 @@
   * 🔴 **BAHAYA / KRITIS:** Peringatan darurat anti-bootloop jika mencoba menghapus core sistem.
 * **Batch 1-Click Debloat:** Bersihkan semua bloatware aman sekaligus dalam hitungan detik.
 
+<p align="center">
+  <img src="docs/images/preview_debloater.png" width="95%" alt="ADB Tools GUI - Smart Debloater">
+</p>
+
+---
+
 ### 4. 🖥 Screen Mirroring (Scrcpy Multi-Version Manager)
 * **Download & Switch Versi Scrcpy:** Mengambil daftar rilis resmi Scrcpy langsung dari GitHub Releases API (v5.0.1, v5.0, v4.1, v3.1, dll) dengan opsi unduh 1-klik.
 * **Manajemen Proses Cerdas:** Mendeteksi otomatis penutupan jendela Scrcpy (*exit watcher*), sehingga tombol Start langsung aktif kembali tanpa *hang* atau *pipe deadlock*.
@@ -62,20 +83,32 @@
   * Opsi: *Turn screen off* (layar HP mati saat mirror untuk menghemat baterai), *Stay Awake*, *Always on top*, *Show touches*, dan *No audio*.
   * Perekaman video sesi mirroring langsung ke format `.mp4`.
 
-### 5. 📁 File Explorer
+<p align="center">
+  <img src="docs/images/preview_scrcpy.png" width="95%" alt="ADB Tools GUI - Screen Mirroring Scrcpy">
+</p>
+
+---
+
+### 5. 📁 File Explorer Dua Arah
 * Jelajahi direktori penyimpanan Android (`/sdcard`, `/`, root).
 * Bookmark cepat: SDCard, DCIM, Download, dan Root.
 * Transfer file dua arah: Push (PC ke HP) dan Pull (Download HP ke PC).
 * Operasi berkas: Buat folder, ganti nama, dan hapus berkas/folder.
 
+---
+
 ### 6. ⚡ Fastboot & Multi-Reboot Diagnostics
 * **Reboot Cepat 1-Klik:** Normal System, Recovery, Bootloader / Fastboot, FastbootD, EDL (Emergency Download Mode 9008), dan Sideload.
 * **Diagnostik Fastboot Mode:** Deteksi otomatis perangkat Fastboot dan baca seluruh variabel bootloader (`fastboot getvar all`).
+
+---
 
 ### 7. 💻 Shell Terminal & Live Logcat
 * Terminal interaktif ADB Shell dengan riwayat perintah dan jalan pintas (*shortcuts*).
 * Streaming real-time Android Logcat dengan filter log level (*Verbose, Debug, Info, Warning, Error, Fatal*), pencarian teks, dan opsi ekspor log.
 * Log Audit transparan yang merekam setiap perintah ADB yang dieksekusi di balik layar.
+
+---
 
 ### 8. 🌐 Wireless ADB
 * Hubungkan perangkat tanpa kabel menggunakan alamat IP & Port.
@@ -139,6 +172,8 @@ adb-tools/
 │── ADB_Tools_GUI.spec        # Konfigurasi PyInstaller Onedir
 │── ADB_Tools_GUI_Single.spec # Konfigurasi PyInstaller Single File
 │── requirements.txt          # Dependensi Python
+│── docs/
+│   └── images/               # Preview screenshot untuk dokumentasi
 │── bin/                      # Berisi binaries platform-tools (adb.exe, fastboot.exe, dll)
 │── data/                     # Database UAD (uad_lists.json), rilis scrcpy, dan aset icon
 │── core/                     # Layanan inti (ADB, Scrcpy, Paket, Audit, File, Device)
