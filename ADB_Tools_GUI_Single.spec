@@ -22,7 +22,7 @@ exe = EXE(
     a.binaries,
     a.datas,
     [],
-    name='ADB_Studio_Single',
+    name='ADB_Tools_GUI_Single',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,

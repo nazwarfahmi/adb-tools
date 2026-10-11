@@ -26,7 +26,7 @@ class DeviceScanWorker(QThread):
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("ADB Studio - Device Manager & Tools")
+        self.setWindowTitle("ADB Tools GUI - Device Manager & Android Tools")
         self.resize(1020, 640)
         self.setMinimumSize(880, 540)
 
@@ -54,7 +54,7 @@ class MainWindow(QMainWindow):
         th_layout.setSpacing(8)
 
         # App Logo & Name
-        lbl_app = QLabel("⚡ ADB Studio")
+        lbl_app = QLabel("⚡ ADB Tools GUI")
         lbl_app.setStyleSheet("font-size: 13px; font-weight: bold; color: #0284c7;")
         th_layout.addWidget(lbl_app)
 

@@ -322,7 +322,7 @@ class ScrcpyManager(QObject):
         if record_file:
             cmd.extend(["--record", record_file])
 
-        # Prepare environment variable to force scrcpy to use ADB Studio's adb binary
+        # Prepare environment variable to force scrcpy to use ADB Tools GUI's adb binary
         # This prevents ADB version mismatches and daemon killing!
         env = os.environ.copy()
         adb_bin = settings.get("adb_path") or str(Path(__file__).resolve().parent.parent / "bin" / "adb.exe")

@@ -1,6 +1,6 @@
 @echo off
-title ADB Studio
-echo Starting ADB Studio...
+title ADB Tools GUI
+echo Starting ADB Tools GUI...
 python main.py
 if errorlevel 1 (
     echo.

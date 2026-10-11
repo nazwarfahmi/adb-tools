@@ -1,144 +1,160 @@
-# ⚡ ADB Studio (GUI Tool Suite)
+# ⚡ ADB Tools GUI (Android Device Manager & Utility Suite)
 
-Aplikasi Desktop modern berbasis **Python (PySide6)** untuk mengelola, mengontrol, dan mendiagnosis perangkat Android melalui **ADB** dan **Fastboot**.
+<p align="center">
+  <img src="data/check.png" width="64" height="64" alt="ADB Tools GUI Logo">
+  <br>
+  <b>All-in-One Desktop Utility for Android Management, App Audit, Debloating, and Screen Mirroring</b>
+  <br>
+  <i>Dibangun dengan Python & PySide6 dengan antarmuka modern, responsif, dan kaya fitur.</i>
+</p>
 
----
-
-## ✨ Fitur Lengkap
-
-### 1. 📱 Device Overview & Remote Control
-* **Identitas Lengkap:** Brand, Nama Model, Nomor Seri, Versi Android, SDK API Level, Build Number, Security Patch, CPU Architecture (ABI), dan Alamat IP Wi-Fi.
-* **Hardware & Status Baterai:** Persentase baterai, status charging, suhu baterai (°C), voltase, kesehatan baterai, resolusi layar, screen density (DPI), sisa storage (`/data`), dan pemakaian RAM.
-* **Remote Key Controller:** Tombol navigasi fisik (Back, Home, Recent Apps, Power / Wake, Volume +, Volume -).
-* **Text Sender:** Mengetik teks langsung dari PC ke input field yang aktif di HP.
-* **Tangkapan Layar:** Screenshot langsung dari layar HP tanpa file sementara di HP, dilengkapi pratinjau dan opsi simpan PNG.
-* **Sinkronisasi Clipboard:** Membaca atau mengirim teks ke clipboard HP.
-
-### 2. 📦 App Manager & Smart Debloater (UAD Integration)
-* **Integrasi Database UAD (5.300+ Aplikasi):** Terhubung dengan database resmi Universal Android Debloater (termasuk kustomisasi `org.lineageos.jelly` dan `com.cyanogenmod.filemanager`).
-* **Proteksi Keamanan Berlapis (Anti-Bootloop):**
-  * 🟢 **Aman Dihapus (Recommended):** Bloatware bawaan pabrik, pelacak, dan analitik yang 100% aman dihapus/dibekukan.
-  * 🟡 **Perlu Aplikasi Pengganti (Advanced):** Aplikasi seperti browser atau file manager bawaan (peringatan agar pengguna memasang penggantinya dulu).
-  * 🟠 **Berisiko (Expert):** Aplikasi yang bila dihapus dapat menghilangkan fitur tertentu (Bluetooth, AOD, Kamera).
-  * 🔴 **BAHAYA / SISTEM KRITIS (Unsafe):** Dialog peringatan darurat jika pengguna mencoba menghapus aplikasi yang dapat menyebabkan **HP BOOTLOOP / MATI TOTAL**.
-* **Panel Panduan & Deskripsi Aplikasi:** Klik pada aplikasi manapun untuk membaca penjelasan detail fungsi aplikasi tersebut langsung di dalam GUI.
-* **⚡ 1-Click Batch Debloat (Rekomendasi):** Otomatis mendeteksi semua bloatware aman di HP dan membekukannya (*freeze/disable*) atau menghapusnya secara massal dengan aman.
-* **🔄 Update UAD Database:** Tombol 1-klik untuk memperbarui ribuan definisi aplikasi terbaru langsung dari GitHub.
-* **Drag & Drop:** Cukup tarik file `.apk` ke dalam aplikasi untuk langsung menginstal.
-* **Operasi Tambahan:** Launch app, Force stop, Clear data & cache, Extract/Backup APK ke PC.
-
-### 3. 📁 File Explorer
-* **Navigasi File Android:** Jelajahi sistem file perangkat (`/sdcard`, `/`, dsb) dengan bookmark cepat (SDCard, DCIM, Download, Root).
-* **Transfer Dua Arah:**
-  * Push file atau folder dari PC ke HP (dengan progress bar).
-  * Pull (Download) file atau folder dari HP ke PC.
-* **Manajemen File:** Buat folder baru (`mkdir`), ganti nama file/folder (`rename`), dan hapus (`delete`).
-
-### 4. 🖥 Screen Mirroring (Integrasi Multi-Versi Scrcpy)
-* **Manajer Versi Otomatis dari GitHub:** Mengambil daftar rilis resmi Scrcpy langsung dari GitHub Releases API (`https://github.com/Genymobile/scrcpy/releases`).
-* **Pilihan Versi Bebas & Multi-Unduhan:** Pengguna dapat memilih versi yang diinginkan (misal v5.0.1, v5.0, v4.1, v3.3.4, v3.1, v2.7, dsb), mengunduhnya dengan 1-klik, dan berganti versi aktif kapan saja tanpa perlu unduh ulang.
-* **Deteksi Lokal & Custom:** Otomatis mendeteksi folder versi yang sudah terinstal di `bin/scrcpy_versions/` atau memilih file `scrcpy.exe` manual dari komputer.
-* **Pengaturan Kualitas Layar:**
-  * Resolusi (Native, 720p, 1080p FHD, 1440p 2K).
-  * Video Bitrate (2 Mbps s/d 24 Mbps).
-  * Frame Rate (30 FPS, 60 FPS, 120 FPS).
-* **Opsi Mirroring:**
-  * Tetap menyala (*Stay Awake*).
-  * Matikan layar fisik HP saat mirroring untuk menghemat baterai (*Turn screen off*).
-  * Mute / tanpa audio (*No audio*).
-  * Selalu di atas (*Always on top*), Fullscreen, dan Tampilkan sentuhan (*Show touches*).
-  * Mode OTG (simulasi mouse/keyboard tanpa layar).
-* **Perekaman Layar:** Simpan sesi mirroring langsung ke format video `.mp4`.
-
-### 5. 🔄 Reboot Options & Device Diagnostics
-* **Menu Reboot One-Click (ADB):**
-  * Reboot System Normal
-  * Reboot ke Recovery (TWRP / Stock)
-  * Reboot ke Bootloader / Fastboot
-  * Reboot ke FastbootD (Dynamic Partitions)
-  * Reboot ke EDL (Qualcomm Emergency Download Mode 9008)
-  * Reboot ke Sideload
-* **Fitur Fastboot Mode & Diagnostics:**
-  * Deteksi perangkat Fastboot secara otomatis.
-  * Baca semua variabel bootloader (`fastboot getvar all`).
-  * Fastboot Reboot System & Bootloader.
-  * Panduan ringkas fungsi setiap mode reboot untuk pengguna awam.
-
-### 6. 💻 Terminal & Live Logs
-* **ADB Shell Console:** Terminal interaktif dengan riwayat perintah dan tombol *preset* (info baterai, daftar app, free disk, top process, dll).
-* **Live Logcat Stream:** Streaming logcat perangkat real-time dengan filter log level (*Verbose, Debug, Info, Warning, Error, Fatal*), filter teks, serta ekspor log ke file `.txt`.
-* **ADB Activity Audit:** Transparansi penuh yang mencatat setiap perintah ADB/Fastboot yang dijalankan aplikasi di latar belakang beserta outputnya.
-
-### 7. 🌐 Wi-Fi / Wireless ADB
-* Hubungkan HP tanpa kabel USB melalui alamat IP dan Port (`adb connect ip:port`).
-* Mendukung pairing Wireless Debugging Android 11+ (dengan 6-digit code).
-* Fitur 1-klik untuk mengaktifkan port TCP/IP 5555 pada HP yang sedang dicolok USB.
+<p align="center">
+  <img src="https://img.shields.io/badge/Platform-Windows-0078D6?logo=windows" alt="Platform">
+  <img src="https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python" alt="Python">
+  <img src="https://img.shields.io/badge/Framework-PySide6-41CD52?logo=qt" alt="PySide6">
+  <img src="https://img.shields.io/badge/ADB%20Tools-Bundled-orange" alt="ADB Bundled">
+  <img src="https://img.shields.io/badge/License-MIT-blue" alt="License">
+</p>
 
 ---
 
-## 🚀 Cara Menjalankan
+## 🌟 Fitur Utama
 
-### Persyaratan
-* Python 3.10+ (Sudah terpasang di komputer Anda)
-* Dependensi `PySide6` (Sudah terpasang)
+### 1. 📱 Device Overview & Hardware Diagnostics
+* **Spesifikasi Lengkap:** Brand, model, serial, versi Android, SDK level, build fingerprint, security patch, arsitektur CPU (ABI), dan alamat IP Wi-Fi.
+* **Monitor Baterai & Hardware:** Level baterai, status pengisian daya, suhu baterai real-time (°C), voltase, kesehatan baterai, kapasitas storage `/data`, dan RAM.
+* **Remote Controller & Navigasi:** Kontrol fisik virtual (Back, Home, Recent Apps, Power / Screen Toggle, Volume +/-).
+* **Text Sender & Clipboard Sync:** Ketik teks langsung dari PC ke HP atau sinkronkan clipboard dua arah.
+* **Screenshot Instan:** Ambil tangkapan layar HP tanpa meninggalkan file sampah di perangkat.
 
-### Menjalankan Langsung:
-Cukup klik ganda file:
-```bat
-run.bat
-```
-atau lewat terminal PowerShell / Command Prompt:
-```bash
-python main.py
-```
+### 2. 📦 App Manager, Inspector & Audit Iklan/Malware
+* **Visual App List:** Menampilkan nama asli aplikasi, nama paket (*package name*), dan icon aplikasi secara otomatis dalam tata letak 2 baris yang elegan.
+* **🔍 Detail App Audit (Inspector):**
+  * Rincian izin lengkap (*Dangerous permissions, system alert/overlay, background service*).
+  * Deteksi SDK Iklan & Pelacak (*Google AdMob, Unity Ads, AppLovin, Facebook Audience Network, IronSource, Mintegral, Pangle*).
+  * Informasi signature, target SDK, tanggal pemasangan, sumber penginstal, dan ukuran cache/storage.
+* **🚨 Deteksi Adware Pop-up Cerdas:**
+  * Mendeteksi otomatis aplikasi nakal yang memunculkan iklan full-screen tiba-tiba saat HP idle atau di home screen (kombinasi deteksi Ad SDK + izin `SYSTEM_ALERT_WINDOW` / Tampilkan di atas aplikasi lain).
+* **🛡 Pembasmi Iklan & Pengoptimal HP (Ad-Blocker Helper):**
+  * Konfigurasi 1-klik Private DNS (AdGuard DNS `dns.adguard-dns.com` & NextDNS) tanpa perlu root.
+  * Reset Private DNS ke setelan standar (*Automatic/Off*).
+  * Bersihkan data/cache aplikasi yang dicurigai serta batasi aktivitas latar belakang (*AppOps Run-in-Background*).
+* **Verifikasi 2 Langkah (Anti-Salah Hapus):** Setiap operasi penghapusan, uninstall, atau freeze dilengkapi dialog konfirmasi interaktif.
+* **Operasi Tambahan:** Pasang APK (Drag & Drop), Buka aplikasi, Force stop, Hapus cache, dan Ekspor/Backup APK ke PC.
+
+### 3. 🧹 Smart Debloater (Integrasi Database UAD 5.300+ Paket)
+* **Proteksi 3 Lapis Aplikasi Pihak Ketiga (Anti-Salah Hapus):**
+  * Daftar debloater secara ketat **hanya memindai partisi sistem bawaan pabrik** (`/system`, `/product`, `/vendor`, `/apex`).
+  * Aplikasi user yang diunduh dari Play Store (seperti WhatsApp, Facebook, Shopee, Mobile Legends) otomatis diisolasi dan tidak akan masuk ke daftar debloat.
+* **Kategori Resiko Berdasarkan Database UAD:**
+  * 🟢 **Rekomendasi (Aman):** Bloatware OEM, analitik, dan pelacak pabrikan yang 100% aman dihapus/dibekukan.
+  * 🟡 **Perlu Pengganti:** Browser atau galeri bawaan (peringatan untuk menginstal alternatif terlebih dahulu).
+  * 🟠 **Berisiko:** Layanan yang jika dihapus dapat mematikan fitur spesifik (Bluetooth, AOD, Kamera).
+  * 🔴 **BAHAYA / KRITIS:** Peringatan darurat anti-bootloop jika mencoba menghapus core sistem.
+* **Batch 1-Click Debloat:** Bersihkan semua bloatware aman sekaligus dalam hitungan detik.
+
+### 4. 🖥 Screen Mirroring (Scrcpy Multi-Version Manager)
+* **Download & Switch Versi Scrcpy:** Mengambil daftar rilis resmi Scrcpy langsung dari GitHub Releases API (v5.0.1, v5.0, v4.1, v3.1, dll) dengan opsi unduh 1-klik.
+* **Manajemen Proses Cerdas:** Mendeteksi otomatis penutupan jendela Scrcpy (*exit watcher*), sehingga tombol Start langsung aktif kembali tanpa *hang* atau *pipe deadlock*.
+* **Sinkronisasi ADB Daemon:** Menghubungkan Scrcpy langsung ke ADB bawaan aplikasi untuk menghindari konflik *ADB server killed*.
+* **Kustomisasi Tampilan:**
+  * Kualitas: Resolusi hingga 2K, bitrate 2-24 Mbps, frame rate 30-120 FPS.
+  * Opsi: *Turn screen off* (layar HP mati saat mirror untuk menghemat baterai), *Stay Awake*, *Always on top*, *Show touches*, dan *No audio*.
+  * Perekaman video sesi mirroring langsung ke format `.mp4`.
+
+### 5. 📁 File Explorer
+* Jelajahi direktori penyimpanan Android (`/sdcard`, `/`, root).
+* Bookmark cepat: SDCard, DCIM, Download, dan Root.
+* Transfer file dua arah: Push (PC ke HP) dan Pull (Download HP ke PC).
+* Operasi berkas: Buat folder, ganti nama, dan hapus berkas/folder.
+
+### 6. ⚡ Fastboot & Multi-Reboot Diagnostics
+* **Reboot Cepat 1-Klik:** Normal System, Recovery, Bootloader / Fastboot, FastbootD, EDL (Emergency Download Mode 9008), dan Sideload.
+* **Diagnostik Fastboot Mode:** Deteksi otomatis perangkat Fastboot dan baca seluruh variabel bootloader (`fastboot getvar all`).
+
+### 7. 💻 Shell Terminal & Live Logcat
+* Terminal interaktif ADB Shell dengan riwayat perintah dan jalan pintas (*shortcuts*).
+* Streaming real-time Android Logcat dengan filter log level (*Verbose, Debug, Info, Warning, Error, Fatal*), pencarian teks, dan opsi ekspor log.
+* Log Audit transparan yang merekam setiap perintah ADB yang dieksekusi di balik layar.
+
+### 8. 🌐 Wireless ADB
+* Hubungkan perangkat tanpa kabel menggunakan alamat IP & Port.
+* Dukungan penuh Android 11+ Wireless Debugging dengan 6-Digit Pairing Code.
+* Tombol 1-klik untuk mengaktifkan port TCP/IP 5555 melalui koneksi USB awal.
 
 ---
 
-## 📦 Build Menjadi File Executable (.exe)
+## 🚀 Instalasi & Penggunaan
 
-Untuk membagikan aplikasi ini kepada orang lain tanpa perlu instal Python:
-Cukup klik ganda:
-```bat
-build_exe.bat
-```
-File `.exe` siap pakai akan berada di dalam folder `dist/ADB_Studio/`.
+### Opsi 1: Menggunakan File Standalone EXE (Rekomendasi Pengguna)
+1. Buka tab **[Releases](https://github.com/)** pada repository ini.
+2. Unduh file **`ADB_Tools_GUI_Single.exe`**.
+3. Jalankan langsung di Windows (tidak perlu instal Python, semua tools ADB sudah terpasang di dalamnya).
 
 ---
 
-## 📂 Struktur Proyek Terpisah Per Fungsi
+### Opsi 2: Menjalankan dari Source Code (Pengembang)
+
+1. **Clone Repository:**
+   ```bash
+   git clone https://github.com/USERNAME_ANDA/NAMA_REPO.git
+   cd adb-tools
+   ```
+
+2. **Pasang Dependensi:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Jalankan Aplikasi:**
+   Cukup klik ganda berkas `run.bat` atau jalankan via terminal:
+   ```bash
+   python main.py
+   ```
+
+---
+
+## 📦 Build Sendiri Menjadi Executable (.exe)
+
+Tersedia skrip otomatis untuk membuat berkas `.exe` menggunakan PyInstaller:
+
+* **Build 1 File Portable (Single EXE):**
+  Klik ganda `build_single_exe.bat`
+  > Hasil output: `dist\ADB_Tools_GUI_Single.exe` (Hanya 1 file yang perlu dibagikan atau dimasukkan ke GitHub Releases).
+
+* **Build Folder Berkas (Onedir EXE):**
+  Klik ganda `build_exe.bat`
+  > Hasil output: `dist\ADB_Tools_GUI\`
+
+---
+
+## 📂 Struktur Repositori
+
 ```
 adb-tools/
-│── main.py                   # Titik masuk utama aplikasi
-│── run.bat                   # Script launcher cepat Windows
-│── build_exe.bat             # Script build ke .exe standalone
-│── requirements.txt          # Daftar pustaka Python
-│── bin/                      # [PORTABLE] Berisi adb.exe, fastboot.exe, & file DLL
-│── data/                     # Database UAD debloater (uad_lists.json)
-│── core/
-│   ├── cmd_runner.py         # Subprocess runner, timeout, & logging signal
-│   ├── device_service.py     # Deteksi device, specs hardware, baterai, storage
-│   ├── package_service.py    # Install/uninstall APK, freeze, clear data, backup
-│   ├── debloater_service.py   # Database UAD debloater & evaluator risiko bootloop
-│   ├── file_service.py       # Android filesystem, push/pull transfer, mkdir, rm
-│   ├── control_service.py    # Remote keyevent, screen capture, typing, clipboard
-│   ├── reboot_service.py     # Reboot modes (recovery, fastboot, edl, sideload)
-│   ├── fastboot_service.py   # Fastboot reboot, getvar all, & deteksi device
-│   ├── wireless_service.py   # Wi-Fi connect, pairing code, TCP/IP 5555
-│   ├── server_service.py     # Start, kill, restart ADB daemon server
-│   ├── scrcpy_manager.py     # Controller Scrcpy & auto-downloader GitHub
-│   ├── settings.py           # Manajemen konfigurasi dan path eksekusi
-│   └── adb_manager.py        # Unified facade / pintu gerbang akses seluruh servis
-└── ui/
-    ├── main_window.py        # Jendela utama, sidebar & topbar
-    ├── style.py              # Tema gelap modern (QSS stylesheet)
-    ├── tabs/                 # 6 Tab modul fitur UI
-    └── dialogs/              # Dialog Wi-Fi ADB & Pengaturan Path
+│── main.py                   # Titik masuk utama aplikasi (PySide6)
+│── run.bat                   # Launcher cepat Windows
+│── build_single_exe.bat      # Script build 1 file executable (.exe)
+│── build_exe.bat             # Script build folder executable
+│── ADB_Tools_GUI.spec        # Konfigurasi PyInstaller Onedir
+│── ADB_Tools_GUI_Single.spec # Konfigurasi PyInstaller Single File
+│── requirements.txt          # Dependensi Python
+│── bin/                      # Berisi binaries platform-tools (adb.exe, fastboot.exe, dll)
+│── data/                     # Database UAD (uad_lists.json), rilis scrcpy, dan aset icon
+│── core/                     # Layanan inti (ADB, Scrcpy, Paket, Audit, File, Device)
+│── ui/                       # Tampilan antarmuka PySide6
+│   ├── main_window.py        # Jendela utama & header navigasi
+│   ├── style.py              # CSS / Qt Stylesheet tema modern
+│   ├── modal.py              # Dialog & pop-up custom
+│   ├── dialogs/              # Dialog (Ad Blocker, App Audit, Settings, Wireless, Confirm)
+│   └── tabs/                 # Tab per fitur (Overview, App Manager, Scrcpy, Files, Fastboot, Terminal)
 ```
 
-> **💡 Tips Debugging:** Setiap file di dalam folder `core/` dapat dijalankan langsung secara mandiri di terminal untuk menguji fungsi spesifik tanpa harus membuka GUI!  
-> Contoh:
-> * Debug info perangkat: `python core/device_service.py`
-> * Debug daftar package: `python core/package_service.py`
-> * Debug file explorer: `python core/file_service.py`
-> * Debug fastboot: `python core/fastboot_service.py`
+---
 
+## 📄 Lisensi & Kredit
+
+* **ADB & Fastboot:** [Android Open Source Project (AOSP)](https://android.googlesource.com/platform/packages/modules/adb) - Apache License 2.0
+* **Scrcpy Integration:** [Genymobile/scrcpy](https://github.com/Genymobile/scrcpy) - Apache License 2.0
+* **Debloat Database:** [Universal Android Debloater (UAD)](https://github.com/0x192/universal-android-debloater) - GPL-3.0
+* **Proyek ini:** Berlisensi [MIT License](LICENSE).

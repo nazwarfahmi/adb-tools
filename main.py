@@ -19,7 +19,7 @@ def main():
     QApplication.setHighDpiScaleFactorRoundingPolicy(Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)
 
     app = QApplication(sys.argv)
-    app.setApplicationName("ADB Studio")
+    app.setApplicationName("ADB Tools GUI")
     app.setOrganizationName("ADB Tools")
     app.setStyleSheet(LIGHT_THEME_QSS)
 
