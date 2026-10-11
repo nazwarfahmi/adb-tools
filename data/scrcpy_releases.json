@@ -1,0 +1,177 @@
+[
+  {
+    "tag": "v5.0.1",
+    "name": "scrcpy 5.0.1",
+    "url": "https://github.com/Genymobile/scrcpy/releases/download/v5.0.1/scrcpy-win64-v5.0.1.zip",
+    "size_mb": 10.7,
+    "published": "2026-10-08"
+  },
+  {
+    "tag": "v5.0",
+    "name": "scrcpy 5.0",
+    "url": "https://github.com/Genymobile/scrcpy/releases/download/v5.0/scrcpy-win64-v5.0.zip",
+    "size_mb": 10.7,
+    "published": "2026-10-05"
+  },
+  {
+    "tag": "v4.1",
+    "name": "scrcpy 4.1",
+    "url": "https://github.com/Genymobile/scrcpy/releases/download/v4.1/scrcpy-win64-v4.1.zip",
+    "size_mb": 10.8,
+    "published": "2026-07-12"
+  },
+  {
+    "tag": "v4.0",
+    "name": "scrcpy 4.0",
+    "url": "https://github.com/Genymobile/scrcpy/releases/download/v4.0/scrcpy-win64-v4.0.zip",
+    "size_mb": 15.0,
+    "published": "2026-05-12"
+  },
+  {
+    "tag": "v3.3.4",
+    "name": "scrcpy v3.3.4",
+    "url": "https://github.com/Genymobile/scrcpy/releases/download/v3.3.4/scrcpy-win64-v3.3.4.zip",
+    "size_mb": 6.9,
+    "published": "2025-12-17"
+  },
+  {
+    "tag": "v3.3.3",
+    "name": "scrcpy v3.3.3",
+    "url": "https://github.com/Genymobile/scrcpy/releases/download/v3.3.3/scrcpy-win64-v3.3.3.zip",
+    "size_mb": 6.9,
+    "published": "2025-09-27"
+  },
+  {
+    "tag": "v3.3.2",
+    "name": "scrcpy v3.3.2",
+    "url": "https://github.com/Genymobile/scrcpy/releases/download/v3.3.2/scrcpy-win64-v3.3.2.zip",
+    "size_mb": 6.9,
+    "published": "2025-09-06"
+  },
+  {
+    "tag": "v3.3.1",
+    "name": "scrcpy v3.3.1",
+    "url": "https://github.com/Genymobile/scrcpy/releases/download/v3.3.1/scrcpy-win64-v3.3.1.zip",
+    "size_mb": 6.9,
+    "published": "2025-06-20"
+  },
+  {
+    "tag": "v3.3",
+    "name": "scrcpy v3.3",
+    "url": "https://github.com/Genymobile/scrcpy/releases/download/v3.3/scrcpy-win64-v3.3.zip",
+    "size_mb": 6.9,
+    "published": "2025-06-11"
+  },
+  {
+    "tag": "v3.2",
+    "name": "scrcpy v3.2",
+    "url": "https://github.com/Genymobile/scrcpy/releases/download/v3.2/scrcpy-win64-v3.2.zip",
+    "size_mb": 6.6,
+    "published": "2025-03-29"
+  },
+  {
+    "tag": "v3.1",
+    "name": "scrcpy v3.1",
+    "url": "https://github.com/Genymobile/scrcpy/releases/download/v3.1/scrcpy-win64-v3.1.zip",
+    "size_mb": 6.6,
+    "published": "2024-12-09"
+  },
+  {
+    "tag": "v3.0.2",
+    "name": "scrcpy v3.0.2",
+    "url": "https://github.com/Genymobile/scrcpy/releases/download/v3.0.2/scrcpy-win64-v3.0.2.zip",
+    "size_mb": 5.8,
+    "published": "2024-12-04"
+  },
+  {
+    "tag": "v3.0.1",
+    "name": "scrcpy v3.0.1",
+    "url": "https://github.com/Genymobile/scrcpy/releases/download/v3.0.1/scrcpy-win64-v3.0.1.zip",
+    "size_mb": 5.8,
+    "published": "2024-12-04"
+  },
+  {
+    "tag": "v3.0",
+    "name": "scrcpy v3.0",
+    "url": "https://github.com/Genymobile/scrcpy/releases/download/v3.0/scrcpy-win64-v3.0.zip",
+    "size_mb": 5.8,
+    "published": "2024-11-24"
+  },
+  {
+    "tag": "v2.7",
+    "name": "scrcpy v2.7",
+    "url": "https://github.com/Genymobile/scrcpy/releases/download/v2.7/scrcpy-win64-v2.7.zip",
+    "size_mb": 5.7,
+    "published": "2024-09-15"
+  },
+  {
+    "tag": "v2.6.1",
+    "name": "scrcpy v2.6.1",
+    "url": "https://github.com/Genymobile/scrcpy/releases/download/v2.6.1/scrcpy-win64-v2.6.1.zip",
+    "size_mb": 5.7,
+    "published": "2024-08-02"
+  },
+  {
+    "tag": "v2.6",
+    "name": "scrcpy v2.6",
+    "url": "https://github.com/Genymobile/scrcpy/releases/download/v2.6/scrcpy-win64-v2.6.zip",
+    "size_mb": 5.7,
+    "published": "2024-08-01"
+  },
+  {
+    "tag": "v2.5",
+    "name": "scrcpy v2.5",
+    "url": "https://github.com/Genymobile/scrcpy/releases/download/v2.5/scrcpy-win64-v2.5.zip",
+    "size_mb": 5.7,
+    "published": "2024-06-29"
+  },
+  {
+    "tag": "v2.4",
+    "name": "scrcpy v2.4",
+    "url": "https://github.com/Genymobile/scrcpy/releases/download/v2.4/scrcpy-win64-v2.4.zip",
+    "size_mb": 5.6,
+    "published": "2024-03-02"
+  },
+  {
+    "tag": "v2.3.1",
+    "name": "scrcpy v2.3.1",
+    "url": "https://github.com/Genymobile/scrcpy/releases/download/v2.3.1/scrcpy-win64-v2.3.1.zip",
+    "size_mb": 5.8,
+    "published": "2023-12-02"
+  },
+  {
+    "tag": "v2.3",
+    "name": "scrcpy v2.3",
+    "url": "https://github.com/Genymobile/scrcpy/releases/download/v2.3/scrcpy-win64-v2.3.zip",
+    "size_mb": 5.8,
+    "published": "2023-11-25"
+  },
+  {
+    "tag": "v2.2",
+    "name": "scrcpy v2.2",
+    "url": "https://github.com/Genymobile/scrcpy/releases/download/v2.2/scrcpy-win64-v2.2.zip",
+    "size_mb": 5.7,
+    "published": "2023-11-01"
+  },
+  {
+    "tag": "v2.1.1",
+    "name": "scrcpy v2.1.1",
+    "url": "https://github.com/Genymobile/scrcpy/releases/download/v2.1.1/scrcpy-win64-v2.1.1.zip",
+    "size_mb": 5.7,
+    "published": "2023-07-14"
+  },
+  {
+    "tag": "v2.1",
+    "name": "scrcpy v2.1",
+    "url": "https://github.com/Genymobile/scrcpy/releases/download/v2.1/scrcpy-win64-v2.1.zip",
+    "size_mb": 5.7,
+    "published": "2023-06-21"
+  },
+  {
+    "tag": "v2.0",
+    "name": "scrcpy v2.0",
+    "url": "https://github.com/Genymobile/scrcpy/releases/download/v2.0/scrcpy-win64-v2.0.zip",
+    "size_mb": 5.7,
+    "published": "2023-03-12"
+  }
+]

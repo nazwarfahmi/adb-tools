@@ -1,0 +1,44 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# PyInstaller & Build artifacts
+build/
+dist/
+*.manifest
+*.spec.bak
+
+# Local Scrcpy downloads (auto-downloaded by app via GitHub releases)
+bin/scrcpy_versions/
+
+# Cached app icons (keep folder structure)
+data/icons/*
+!data/icons/.gitkeep
+
+# Legacy web assets
+web/
+
+# Environments & Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# IDE & Editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+
+# Logs & crash dumps
+*.log
+*.dmp
