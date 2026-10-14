@@ -17,6 +17,7 @@ from core.debloater_service import debloater_service
 from core.icon_service import icon_service
 from core.package_service import get_packages_install_times
 from ui.dialogs.app_audit_dialog import AppAuditDialog
+from ui.dialogs.adware_scanner_dialog import AdwareScannerDialog
 from ui.dialogs.confirm_dialog import confirm_two_step
 from ui.style import styled_btn
 
@@ -713,6 +714,11 @@ class AppManagerTab(QWidget):
         btn_audit.clicked.connect(self.open_app_audit)
         search_bar.addWidget(btn_audit)
 
+        btn_adware = styled_btn("🚨 Pindai Adware Pop-up", "danger")
+        btn_adware.setToolTip("Pindai seluruh HP untuk mendeteksi pembajak layar penuh (REORDER_TASKS, Overlay) dan adware pop-up")
+        btn_adware.clicked.connect(self.open_adware_scanner)
+        search_bar.addWidget(btn_adware)
+
         layout.addLayout(search_bar)
 
         # Progress bar
@@ -751,6 +757,11 @@ class AppManagerTab(QWidget):
         btn_bot_audit = styled_btn("🔍 Detail", "primary")
         btn_bot_audit.setToolTip("Buka halaman audit lengkap aplikasi terpilih")
         btn_bot_audit.clicked.connect(self.open_app_audit)
+
+        btn_bot_adware = styled_btn("🚨 Deteksi Adware", "danger")
+        btn_bot_adware.setToolTip("Pindai seluruh HP untuk mendeteksi pembajak layar dan adware pop-up")
+        btn_bot_adware.clicked.connect(self.open_adware_scanner)
+        bot_bar.addWidget(btn_bot_adware)
 
         btn_launch = QPushButton("🚀 Buka")
         btn_launch.clicked.connect(self.launch_selected)
@@ -1289,6 +1300,13 @@ class AppManagerTab(QWidget):
             app_title = extract_app_name(pkg)
 
         dlg = AppAuditDialog(self.current_serial, pkg, app_title, self)
+        dlg.exec()
+
+    def open_adware_scanner(self):
+        if not self.current_serial:
+            QMessageBox.warning(self, "Peringatan", "Silakan hubungkan perangkat HP terlebih dahulu.")
+            return
+        dlg = AdwareScannerDialog(self.current_serial, self)
         dlg.exec()
 
     def launch_selected(self):

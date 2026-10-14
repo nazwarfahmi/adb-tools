@@ -342,27 +342,30 @@ class AppAuditDialog(QDialog):
         ads = data.get("ad_networks", [])
         trackers = data.get("trackers", [])
         total_threats = len(ads) + len(trackers)
-        has_overlay = any(
-            p.get("name") == "android.permission.SYSTEM_ALERT_WINDOW" or
-            p.get("permission") == "android.permission.SYSTEM_ALERT_WINDOW"
-            for p in data.get("permissions_list", [])
-        )
+        threat_info = data.get("threat_assessment", {})
+        verdicts = threat_info.get("verdicts", [])
 
-        if total_threats > 0:
-            self.lbl_ad_icon.setText("🚨" if (has_overlay and ads) else "⚠️")
+        if verdicts:
+            self.lbl_ad_icon.setText("🚨")
             ad_text = f"Terdeteksi {len(ads)} Jaringan Iklan" if ads else ""
             tr_text = f"{len(trackers)} Pelacak Aktif" if trackers else ""
             sep = " dan " if ads and trackers else ""
-            if has_overlay and ads:
-                warning_extra = "\n🚨 INDIKASI ADWARE POP-UP: Aplikasi ini memiliki modul iklan DAN izin 'Tampilkan di atas aplikasi lain' (Overlay)! Ini adalah penyebab paling umum iklan pop-up tiba-tiba muncul satu layar penuh saat pengguna sedang membuka aplikasi lain atau berada di layar utama."
-                bg_col = "#fef2f2"
-                border_col = "#fca5a5"
-                text_col = "#991b1b"
-            else:
-                warning_extra = "\nModul komersial ini dapat memuat banner/iklan pop-up dan mengumpulkan data penggunaan."
-                bg_col = "#fffbeb"
-                border_col = "#fcd34d"
-                text_col = "#b45309"
+            warning_extra = "\n" + "\n".join(verdicts)
+            bg_col = "#fef2f2"
+            border_col = "#fca5a5"
+            text_col = "#991b1b"
+            self.lbl_ad_summary.setText(f"Bahaya Adware: {ad_text}{sep}{tr_text}!{warning_extra}")
+            self.banner_ads.setStyleSheet(f"QFrame#bannerAds {{ background-color: {bg_col}; border: 1px solid {border_col}; border-radius: 6px; padding: 10px; }}")
+            self.lbl_ad_summary.setStyleSheet(f"font-size: 12px; font-weight: 600; color: {text_col};")
+        elif total_threats > 0:
+            self.lbl_ad_icon.setText("⚠️")
+            ad_text = f"Terdeteksi {len(ads)} Jaringan Iklan" if ads else ""
+            tr_text = f"{len(trackers)} Pelacak Aktif" if trackers else ""
+            sep = " dan " if ads and trackers else ""
+            warning_extra = "\nModul komersial ini dapat memuat banner/iklan dalam aplikasi dan mengumpulkan data penggunaan."
+            bg_col = "#fffbeb"
+            border_col = "#fcd34d"
+            text_col = "#b45309"
 
             self.lbl_ad_summary.setText(f"Perhatian: {ad_text}{sep}{tr_text} di dalam aplikasi ini!{warning_extra}")
             self.banner_ads.setStyleSheet(f"QFrame#bannerAds {{ background-color: {bg_col}; border: 1px solid {border_col}; border-radius: 6px; padding: 10px; }}")

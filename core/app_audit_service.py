@@ -18,13 +18,24 @@ AD_NETWORKS_CATALOG = [
     ("ironSource / LevelPlay", ["com.ironsource"], "Jaringan Iklan & Mediasi ironSource"),
     ("Meta Audience Network", ["com.facebook.ads"], "Jaringan Iklan Facebook / Meta"),
     ("Liftoff / Vungle", ["com.vungle"], "Jaringan Iklan Video Vungle"),
-    ("Mintegral", ["com.mintegral"], "Jaringan Iklan Programatik Mintegral"),
+    ("Mintegral / Mobvista", ["com.mintegral", "com.mbridge.msdk"], "Jaringan Iklan Programatik Mintegral"),
     ("InMobi", ["com.inmobi"], "Jaringan Iklan InMobi"),
     ("TikTok Pangle", ["com.bytedance.sdk.openadsdk", "com.pangle"], "Jaringan Iklan Pangle ByteDance"),
     ("Chartboost", ["com.chartboost"], "Jaringan Iklan Game Chartboost"),
     ("AdColony", ["com.adcolony"], "Jaringan Iklan Video AdColony"),
     ("Tapjoy", ["com.tapjoy"], "Platform Offerwall & Iklan Tapjoy"),
     ("Amazon Mobile Ads", ["com.amazon.device.ads"], "Jaringan Iklan Amazon Mobile Ads"),
+    ("SayGames / SayKit", ["by.saygames", "saygames.saykit"], "SDK Iklan & Telemetri SayGames (Game Kasual)"),
+    ("Bigo Ads", ["sg.bigo.ads"], "Platform Iklan Seluler Bigo Ads"),
+    ("Tramini / TopOn Mediation", ["com.tramini", "com.thinkup"], "Mediasi & Iklan Pop-up Tramini / TopOn"),
+    ("Ogury Ads", ["com.ogury"], "Platform Iklan Seluler Interstitial Ogury"),
+    ("Smaato Ads", ["com.smaato"], "Platform Monetisasi & Iklan Smaato"),
+    ("Digital Turbine Ignite", ["com.digitalturbine"], "Sistem Iklan & Penginstal Otomatis Digital Turbine"),
+    ("Plutus Monetization", ["com.plutus"], "Modul Iklan & Monetisasi Keyboard Plutus"),
+    ("Xiaomi / MIUI System Ads (MSA)", ["com.miui.msa.", "com.miui.msasdk"], "Modul Layanan Iklan Bawaan Xiaomi/MIUI"),
+    ("Zeus Columbus Ads", ["com.zeus.gmc.sdk"], "Jaringan Iklan Zeus Columbus SDK"),
+    ("AppMetrica / Yandex Ads", ["io.appmetrica"], "Pelacak & SDK Iklan AppMetrica"),
+    ("SmartDigiMkt", ["com.smartdigimkt"], "Modul Monetisasi Iklan SmartDigiMkt"),
 ]
 
 # Known Trackers & Analytics SDKs
@@ -66,8 +77,12 @@ PERMISSION_INFO_MAP = {
     "android.permission.BODY_SENSORS": ("Sensor Tubuh", "🔴 Berbahaya", "Mengakses data detak jantung atau sensor biometrik kesehatan."),
     "android.permission.ACTIVITY_RECOGNITION": ("Pengenal Aktivitas Fisik", "🔴 Berbahaya", "Mendeteksi apakah Anda sedang berjalan, berlari, atau berkendara."),
 
+    # 🔴 Sensitive / Dangerous (Privacy & Security Risk)
+    "android.permission.REORDER_TASKS": ("Bawa Tugas ke Depan (REORDER_TASKS)", "🔴 Berbahaya (Bajak Layar)", "Dapat memaksakan jendela aplikasi sendiri tampil di depan saat membuka WhatsApp atau aplikasi lain (penyebab iklan pop-up 1 layar penuh)."),
+
     # 🟡 Special Access (Privilege Risk)
-    "android.permission.SYSTEM_ALERT_WINDOW": ("Overlay / Di Atas Aplikasi", "🟡 Spesial", "Dapat menampilkan jendela melayang di atas aplikasi lain."),
+    "android.permission.SYSTEM_ALERT_WINDOW": ("Overlay / Di Atas Aplikasi", "🟡 Spesial (Risiko Pop-up)", "Dapat menampilkan jendela melayang atau iklan pop-up penuh di atas aplikasi lain."),
+    "android.permission.BIND_INPUT_METHOD": ("Layanan Keyboard Sistem (IME)", "🟡 Akses Keyboard", "Berjalan di latar belakang setiap saat Anda membuka pesan/chat."),
     "android.permission.REQUEST_INSTALL_PACKAGES": ("Pasang File APK", "🟡 Spesial", "Dapat mengunduh dan memasang aplikasi luar tanpa Play Store."),
     "android.permission.PACKAGE_USAGE_STATS": ("Pantau Pemakaian Aplikasi", "🟡 Spesial", "Melihat aplikasi apa saja yang sedang Anda buka dan seberapa lama."),
     "android.permission.POST_NOTIFICATIONS": ("Kirim Notifikasi", "🟡 Perhatian", "Dapat mengirim pesan pemberitahuan di bilah status."),
@@ -179,11 +194,18 @@ def audit_package(serial: str, package_name: str) -> Dict[str, Any]:
             mb_val = round(bytes_val / (1024 * 1024), 2)
             info["apk_size"] = f"{mb_val} MB ({bytes_val:,} bytes)"
 
+    # Filter out queriesPackages and queriesIntents to prevent false positive matches
+    clean_dump_lines = [
+        l for l in raw_dump.splitlines()
+        if not l.strip().startswith("queriesPackages=") and not l.strip().startswith("queriesIntents=")
+    ]
+    clean_dump = "\n".join(clean_dump_lines)
+
     # 3. Detect Ad Networks
     detected_ads = []
     for ad_name, patterns, ad_desc in AD_NETWORKS_CATALOG:
         for p in patterns:
-            if p in raw_dump:
+            if p in clean_dump:
                 detected_ads.append({"name": ad_name, "category": "Iklan", "description": ad_desc, "evidence": p})
                 break
     info["ad_networks"] = detected_ads
@@ -192,7 +214,7 @@ def audit_package(serial: str, package_name: str) -> Dict[str, Any]:
     detected_trackers = []
     for tr_name, patterns, tr_desc in TRACKERS_CATALOG:
         for p in patterns:
-            if p in raw_dump:
+            if p in clean_dump:
                 detected_trackers.append({"name": tr_name, "category": "Pelacak / Analitik", "description": tr_desc, "evidence": p})
                 break
     info["trackers"] = detected_trackers
@@ -284,4 +306,116 @@ def audit_package(serial: str, package_name: str) -> Dict[str, Any]:
     info["components_count"]["receivers"] = len(re.findall(r'Receiver\s*\{', raw_dump))
     info["components_count"]["providers"] = len(re.findall(r'Provider\s*\{', raw_dump))
 
+    # 7. Adware & Rogue Pop-up Threat Assessment
+    has_saw = any(p["permission"] == "android.permission.SYSTEM_ALERT_WINDOW" and p["granted"] for p in perms_list)
+    has_reorder = any(p["permission"] == "android.permission.REORDER_TASKS" and p["granted"] for p in perms_list)
+    has_ime = "android.permission.BIND_INPUT_METHOD" in raw_dump
+    has_fgs = any(p["permission"] == "android.permission.FOREGROUND_SERVICE" and p["granted"] for p in perms_list)
+    is_oem = package_name in ["com.miui.msa.global", "com.miui.android.fashiongallery", "com.xiaomi.mipicks", "com.amazon.appmanager"]
+
+    ad_count = len(detected_ads)
+    threat_verdicts = []
+
+    if (has_saw or has_reorder) and ad_count > 0:
+        hijack_perm = "REORDER_TASKS (Bawa tugas ke depan)" if has_reorder else "SYSTEM_ALERT_WINDOW (Overlay)"
+        if has_saw and has_reorder:
+            hijack_perm = "REORDER_TASKS & Overlay"
+        threat_verdicts.append(
+            f"🚨 INDIKASI ADWARE POP-UP SELAYAR: Aplikasi ini memiliki modul iklan DAN izin '{hijack_perm}'! "
+            "Ini adalah penyebab paling umum iklan selayar penuh tiba-tiba muncul saat membuka WhatsApp atau aplikasi lainnya."
+        )
+
+    if has_ime and ad_count > 0:
+        threat_verdicts.append(
+            "🚨 ADWARE KEYBOARD (IME): Aplikasi ini bertindak sebagai papan ketik/keyboard sistem yang disusupi modul iklan komersial. "
+            "Iklan dapat terpicu setiap kali Anda membuka percakapan chat, WhatsApp, atau mengetik di layar."
+        )
+
+    if is_oem:
+        threat_verdicts.append(
+            "🏢 ADWARE SISTEM BAWAAN (OEM): Layanan promosi latar belakang bawaan pabrik yang memuat iklan rekomendasi, "
+            "katalog lockscreen, atau pop-up recall."
+        )
+
+    if has_fgs and ad_count > 0 and not threat_verdicts:
+        threat_verdicts.append(
+            "⚡ BACKGROUND AD SERVICE: Menjalankan layanan latar belakang (Foreground Service) terus-menerus yang memuat modul iklan."
+        )
+
+    if threat_verdicts:
+        threat_level = "CRITICAL"
+    elif ad_count >= 2:
+        threat_level = "HIGH"
+    elif ad_count > 0:
+        threat_level = "MEDIUM"
+    else:
+        threat_level = "CLEAN"
+
+    info["threat_assessment"] = {
+        "threat_level": threat_level,
+        "has_overlay": has_saw,
+        "has_reorder_tasks": has_reorder,
+        "has_ime": has_ime,
+        "has_fgs": has_fgs,
+        "is_oem_adware": is_oem,
+        "verdicts": threat_verdicts
+    }
+
     return info
+
+
+def scan_adware_on_device(serial: str, progress_cb=None) -> List[Dict[str, Any]]:
+    """
+    Perform a complete device scan to discover rogue popup adware,
+    invasive monetization SDKs, and OEM ad daemons.
+    """
+    if not serial:
+        return []
+
+    # Get all currently installed packages for user 0
+    ok_all, out_all = cmd_runner.run_adb(["shell", "pm", "list", "packages"], serial=serial)
+    all_installed = set()
+    if ok_all and out_all:
+        for line in out_all.splitlines():
+            line = line.strip()
+            if line.startswith("package:"):
+                all_installed.add(line[8:].strip())
+
+    # Get 3rd-party packages
+    ok, out = cmd_runner.run_adb(["shell", "pm", "list", "packages", "-3"], serial=serial)
+    pkgs = []
+    if ok and out:
+        for line in out.splitlines():
+            line = line.strip()
+            if line.startswith("package:"):
+                p = line[8:].strip()
+                if p in all_installed:
+                    pkgs.append(p)
+
+    # Include known OEM ad daemons only if currently installed on device
+    known_oem = ["com.miui.msa.global", "com.miui.android.fashiongallery", "com.xiaomi.mipicks", "com.amazon.appmanager"]
+    for oem in known_oem:
+        if oem in all_installed and oem not in pkgs:
+            pkgs.append(oem)
+
+    results = []
+    total = len(pkgs)
+    for idx, pkg in enumerate(pkgs):
+        if progress_cb:
+            progress_cb(idx + 1, total, pkg)
+        audit = audit_package(serial, pkg)
+        if not audit or "error" in audit:
+            continue
+
+        threat = audit.get("threat_assessment", {})
+        lvl = threat.get("threat_level", "CLEAN")
+        if lvl in ["CRITICAL", "HIGH", "MEDIUM"]:
+            results.append(audit)
+
+    # Sort results: CRITICAL first, then HIGH, then MEDIUM
+    rank_order = {"CRITICAL": 0, "HIGH": 1, "MEDIUM": 2, "CLEAN": 3}
+    results.sort(key=lambda x: (
+        rank_order.get(x.get("threat_assessment", {}).get("threat_level", "CLEAN"), 3),
+        -len(x.get("ad_networks", []))
+    ))
+    return results
